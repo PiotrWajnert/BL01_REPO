@@ -35,6 +35,8 @@ public class NinjaAI : MonoBehaviour
     public int maxHealth = 3;
     public int currentHealth;
     public bool isDead = false;
+    public int pointsPerHit = 100;
+    public int pointsPerKill = 250;
 
     [Header("Detection")]
     public LayerMask groundLayer;
@@ -381,6 +383,12 @@ public class NinjaAI : MonoBehaviour
 
         currentHealth -= damage;
 
+        //punkty za trafienie
+        if(ScoreManager.instance != null)
+        {
+            ScoreManager.instance.AddPoints(pointsPerHit);
+        }
+
         // ZAWSZE odpalaj efekt uderzenia (odrzut + animacja)
         TriggerHurt(hurtDuration, true, isStrong);
 
@@ -394,6 +402,12 @@ public class NinjaAI : MonoBehaviour
     {
         if (isDead) return;
         isDead = true;
+
+        //punkty za zabicie
+        if(ScoreManager.instance != null)
+        {
+            ScoreManager.instance.AddPoints(pointsPerKill);
+        }
 
         // Wy³¹czamy kolizjê natychmiast, ¿eby nie blokowa³ gracza
         if (boxCollider != null) boxCollider.enabled = false;
