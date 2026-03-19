@@ -4,22 +4,11 @@ using TMPro;
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager instance;
-
-    [Header("UI Reference")]
     public TextMeshProUGUI scoreText;
-
-    private int currentScore = 0;
 
     void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        instance = this;
     }
 
     void Start()
@@ -29,16 +18,18 @@ public class ScoreManager : MonoBehaviour
 
     public void AddPoints (int amount)  // wywolywane z innych skryptow
     {
-        currentScore += amount;
-        UpdateScoreUI();
-        Debug.Log("punkty: " + currentScore);
+        if (GameControl.instance != null);
+        {
+            GameControl.instance.AddPoints (amount);
+            UpdateScoreUI();
+        }
     }
 
     void UpdateScoreUI()
     {
-        if (scoreText != null)
+        if (scoreText != null && GameControl.instance != null)
         {
-            scoreText.text = "SCORE: " + currentScore.ToString("D6");
+            scoreText.text = "SCORE: " + GameControl.instance.totalScore.ToString("D6");
         }
     }
 
