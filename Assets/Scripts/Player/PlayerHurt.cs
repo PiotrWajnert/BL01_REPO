@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class PlayerHurt : MonoBehaviour
@@ -18,6 +19,8 @@ public class PlayerHurt : MonoBehaviour
     private Rigidbody2D rb2d;
     private PlayerAnimations playerAnimations;
     private PlayerMovement movement;
+
+    private bool isDead = false;
 
     void Awake()
     {
@@ -40,6 +43,14 @@ public class PlayerHurt : MonoBehaviour
         {
             // Traktujemy to jako "s³abe" uderzenie bez konkretnego kierunku (np. pionowe)
             StartCoroutine(HurtRoutine(duration, null, 0));
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Lethal") && !isDead)
+        {
+            StartCoroutine(InstantDeathRoutine());
         }
     }
 
@@ -91,5 +102,28 @@ public class PlayerHurt : MonoBehaviour
 
         yield return new WaitForSeconds(0.1f);
         isHurt = false;
+    }
+
+    IEnumerator InstantDeathRoutine()
+    {
+        isDead = true;
+
+        if (movement != null)
+        {
+            movement.enabled = false;
+        }
+
+        // 1. ZATRZYMANIE RUCHU
+        rb2d.linearVelocity = Vector2.zero;
+        rb2d.bodyType = RigidbodyType2D.Static; // Bruce nie spada i nie reaguje na fizykê
+
+        // 2. ANIMACJA ZAMRO¯ENIA
+        playerAnimations.ChangeAnimationState("BruceFreeze");
+
+        // 3. CZEKANIE 1 SEKUNDÊ
+        yield return new WaitForSeconds(1.0f);
+
+        // 4. RESET SCENY
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
