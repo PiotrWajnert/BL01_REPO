@@ -5,6 +5,13 @@ public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager instance;
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI livesText;
+
+    [Header("Death UI")]
+    public GameObject deathPanel;
+    public TextMeshProUGUI deathLivesText;
+    public TextMeshProUGUI HUDLivesText;
+
 
     void Awake()
     {
@@ -27,9 +34,30 @@ public class ScoreManager : MonoBehaviour
 
     void UpdateScoreUI()
     {
-        if (scoreText != null && GameControl.instance != null)
+        if (GameControl.instance != null)
         {
-            scoreText.text = "SCORE: " + GameControl.instance.totalScore.ToString("D6");
+            if (scoreText != null)
+                scoreText.text = "SCORE: " + GameControl.instance.totalScore.ToString("D6");
+
+//            if (livesText != null)
+//                livesText.text = "LIVES: " + GameControl.instance.totalLives.ToString();
+
+            if (HUDLivesText != null)
+            {
+                HUDLivesText.text = "LIVES: " + GameControl.instance.totalLives.ToString();
+            }
+        }
+    }
+
+    public void ShowDeathScreen(int livesRemaining)
+    {
+        if (deathPanel != null)
+        {
+            deathPanel.SetActive(true);
+            if (livesRemaining >= 0)
+                deathLivesText.text = "LIVES LEFT: " + livesRemaining;
+            else
+                deathLivesText.text = "GAME OVER";
         }
     }
 

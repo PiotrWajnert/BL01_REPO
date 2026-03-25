@@ -15,6 +15,7 @@ public class PlayerAnimations : MonoBehaviour
     const string PLAYER_HIT = "BruceHit";
     const string PLAYER_KICK = "BruceKick";
     const string PLAYER_HURT = "BruceHurt";
+    const string PLAYER_FREEZE = "BruceFreeze";
 
     void Awake()
     {
@@ -77,6 +78,12 @@ public class PlayerAnimations : MonoBehaviour
         ChangeAnimationState(PLAYER_HURT);
     }
 
+    public void PlayFreezeAnimation()
+    {
+        ChangeAnimationState(PLAYER_FREEZE);
+    }
+
+
     // Funkcja zapobiegaj¹ca restartowaniu tej samej animacji w ka¿dej klatce
     public void ChangeAnimationState(string newState)
     {
@@ -85,5 +92,4 @@ public class PlayerAnimations : MonoBehaviour
         animator.Play(newState);
         currentAnimation = newState;
     }
-
 }

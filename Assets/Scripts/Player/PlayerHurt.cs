@@ -30,13 +30,21 @@ public class PlayerHurt : MonoBehaviour
     }
     public void TakeDamage(int amount, Transform attacker)
     {
-        if (isHurt) return;
+        if (isHurt || isDead) return;
 
         currentHealth -= amount;
-        if (currentHealth < 1) currentHealth = 1;
 
-        StartCoroutine(HurtRoutine(hurtAnimationDuration, attacker, amount));
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+            StartCoroutine(LethalHitRoutine(attacker)); // Œmieræ od ciosu
+        }
+        else
+        {
+            StartCoroutine(HurtRoutine(hurtAnimationDuration, attacker, amount)); // Zwyk³y cios
+        }
     }
+
     public void TriggerHurt(float duration)
     {
         if (!isHurt)
@@ -104,26 +112,87 @@ public class PlayerHurt : MonoBehaviour
         isHurt = false;
     }
 
-    IEnumerator InstantDeathRoutine()
+    public IEnumerator InstantDeathRoutine()
     {
+        if (isDead) yield break; // Zabezpieczenie przed podwójn¹ œmierci¹
         isDead = true;
 
-        if (movement != null)
-        {
-            movement.enabled = false;
-        }
+        if (movement != null) movement.enabled = false;
 
-        // 1. ZATRZYMANIE RUCHU
+        // 1. ZATRZYMANIE I ANIMACJA
         rb2d.linearVelocity = Vector2.zero;
-        rb2d.bodyType = RigidbodyType2D.Static; // Bruce nie spada i nie reaguje na fizykê
+        rb2d.bodyType = RigidbodyType2D.Static;
 
-        // 2. ANIMACJA ZAMRO¯ENIA
-        playerAnimations.ChangeAnimationState("BruceFreeze");
+        if (playerAnimations != null)
+            playerAnimations.PlayFreezeAnimation();
 
-        // 3. CZEKANIE 1 SEKUNDÊ
+        // 2. CZEKAMY CHWILÊ (¿eby gracz zobaczy³, ¿e zgin¹³)
         yield return new WaitForSeconds(1.0f);
 
-        // 4. RESET SCENY
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Time.timeScale = 0f; // zatrzymanie gry
+
+        // 3. LOGIKA ¯YÆ I PANELU
+        if (GameControl.instance != null)
+        {
+            GameControl.instance.LoseLife(); // Odejmujemy ¿ycie w GameControl
+
+            if (ScoreManager.instance != null)
+            {
+                // Pokazujemy czarn¹ planszê z iloœci¹ pozosta³ych ¿yæ
+                ScoreManager.instance.ShowDeathScreen(GameControl.instance.totalLives);
+            }
+        }
+
+        yield return new WaitForSecondsRealtime(1f);
+
+        Time.timeScale = 1f;
+
+        HandleDeathUIAndRestart();
+    }
+
+    private void HandleDeathUIAndRestart()
+    {
+        if (GameControl.instance != null)
+        {
+            GameControl.instance.LoseLife();
+            if (ScoreManager.instance != null)
+            {
+                ScoreManager.instance.ShowDeathScreen(GameControl.instance.totalLives);
+            }
+        }
+
+        StartCoroutine(ExecuteSceneRestart());
+    }
+
+    IEnumerator ExecuteSceneRestart()
+    {
+        Time.timeScale = 0f; // zatrzymanie gry
+
+        yield return new WaitForSecondsRealtime(2.5f);
+
+        Time.timeScale = 1f;
+
+        if (GameControl.instance.totalLives < 0)
+            SceneManager.LoadScene("MainMenu");
+        else
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    IEnumerator LethalHitRoutine(Transform attacker)
+    {
+        isDead = true;
+        if (movement != null) movement.enabled = false;
+
+        float direction = (attacker.position.x > transform.position.x) ? -1f : 1f;
+        rb2d.linearVelocity = new Vector2(direction * strongKnockbackForce, 0.0f); // 0.0f to lekki podskok
+
+        if (playerAnimations != null) playerAnimations.PlayHurtAnimation();
+
+        yield return new WaitForSeconds(0.4f); // Czas lotu
+
+        rb2d.linearVelocity = Vector2.zero;
+        rb2d.bodyType = RigidbodyType2D.Static;
+
+        HandleDeathUIAndRestart();
     }
 }

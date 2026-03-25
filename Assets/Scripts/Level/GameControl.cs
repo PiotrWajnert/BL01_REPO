@@ -11,6 +11,9 @@ public class GameControl : MonoBehaviour
 
     private HashSet<string> collectedItems = new HashSet<string>();
 
+    [Header("Player Stats")]
+    public int totalLives = 5;
+
     void Awake()
     {
         if(instance == null)
@@ -44,4 +47,22 @@ public class GameControl : MonoBehaviour
         }
     }
 
+    public void LoseLife()
+    {
+        totalLives--;
+
+        if(totalLives <= 0)
+        {
+            Debug.Log("GAME OVER");
+        }
+        else
+        {
+            Debug.Log("Straciles zycie, zostalo " + totalLives);
+        }
+    }
+
+    public bool IsGameOver()
+    {
+        return totalLives < 0;
+    }
 }
