@@ -63,6 +63,6 @@ public class GameControl : MonoBehaviour
 
     public bool IsGameOver()
     {
-        return totalLives < 0;
+        return totalLives <= 0;
     }
 }

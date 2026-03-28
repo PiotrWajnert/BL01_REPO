@@ -17,14 +17,17 @@ public class PlayerHurt : MonoBehaviour
 
 
     private Rigidbody2D rb2d;
+    private Collider2D playerCollider;
     private PlayerAnimations playerAnimations;
     private PlayerMovement movement;
 
     private bool isDead = false;
+    private bool lifeAlreadyLost = false;
 
     void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        playerCollider = GetComponent<Collider2D>();
         playerAnimations = GetComponent<PlayerAnimations>();
         movement = GetComponent<PlayerMovement>();
     }
@@ -37,6 +40,7 @@ public class PlayerHurt : MonoBehaviour
         if (currentHealth <= 0)
         {
             currentHealth = 0;
+            isDead = true;
             StartCoroutine(LethalHitRoutine(attacker)); // Œmieræ od ciosu
         }
         else
@@ -64,6 +68,7 @@ public class PlayerHurt : MonoBehaviour
 
     IEnumerator HurtRoutine(float duration, Transform attacker, int damageAmount)
     {
+        if (isDead) yield break;
         isHurt = true;
         isAttacking = false;
         float originalGravity = rb2d.gravityScale;
@@ -112,10 +117,13 @@ public class PlayerHurt : MonoBehaviour
         isHurt = false;
     }
 
+    // KOLCE, OGIEN, POCISKI
     public IEnumerator InstantDeathRoutine()
     {
         if (isDead) yield break; // Zabezpieczenie przed podwójn¹ œmierci¹
         isDead = true;
+
+        if (playerCollider != null) playerCollider.enabled = false; // wylaczamy kolizje z pulapka
 
         if (movement != null) movement.enabled = false;
 
@@ -123,37 +131,24 @@ public class PlayerHurt : MonoBehaviour
         rb2d.linearVelocity = Vector2.zero;
         rb2d.bodyType = RigidbodyType2D.Static;
 
-        if (playerAnimations != null)
-            playerAnimations.PlayFreezeAnimation();
+        if (playerAnimations != null) playerAnimations.PlayFreezeAnimation();
 
         // 2. CZEKAMY CHWILÊ (¿eby gracz zobaczy³, ¿e zgin¹³)
         yield return new WaitForSeconds(1.0f);
 
-        Time.timeScale = 0f; // zatrzymanie gry
-
-        // 3. LOGIKA ¯YÆ I PANELU
-        if (GameControl.instance != null)
-        {
-            GameControl.instance.LoseLife(); // Odejmujemy ¿ycie w GameControl
-
-            if (ScoreManager.instance != null)
-            {
-                // Pokazujemy czarn¹ planszê z iloœci¹ pozosta³ych ¿yæ
-                ScoreManager.instance.ShowDeathScreen(GameControl.instance.totalLives);
-            }
-        }
 
         yield return new WaitForSecondsRealtime(1f);
-
-        Time.timeScale = 1f;
 
         HandleDeathUIAndRestart();
     }
 
     private void HandleDeathUIAndRestart()
     {
+        if (lifeAlreadyLost) return;
+
         if (GameControl.instance != null)
         {
+            lifeAlreadyLost = true;
             GameControl.instance.LoseLife();
             if (ScoreManager.instance != null)
             {
@@ -172,7 +167,7 @@ public class PlayerHurt : MonoBehaviour
 
         Time.timeScale = 1f;
 
-        if (GameControl.instance.totalLives < 0)
+        if (GameControl.instance.totalLives <= 0)
             SceneManager.LoadScene("MainMenu");
         else
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -180,7 +175,8 @@ public class PlayerHurt : MonoBehaviour
 
     IEnumerator LethalHitRoutine(Transform attacker)
     {
-        isDead = true;
+        if (playerCollider != null) playerCollider.enabled = false;
+
         if (movement != null) movement.enabled = false;
 
         float direction = (attacker.position.x > transform.position.x) ? -1f : 1f;

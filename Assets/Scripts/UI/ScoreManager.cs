@@ -54,7 +54,7 @@ public class ScoreManager : MonoBehaviour
         if (deathPanel != null)
         {
             deathPanel.SetActive(true);
-            if (livesRemaining >= 0)
+            if (livesRemaining > 0)
                 deathLivesText.text = "LIVES LEFT: " + livesRemaining;
             else
                 deathLivesText.text = "GAME OVER";
