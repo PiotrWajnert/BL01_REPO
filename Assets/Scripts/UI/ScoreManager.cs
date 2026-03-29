@@ -12,6 +12,9 @@ public class ScoreManager : MonoBehaviour
     public TextMeshProUGUI deathLivesText;
     public TextMeshProUGUI HUDLivesText;
 
+    private int pointsTowardsExtraLife = 0;
+    public int extraLifePoints = 500;
+
 
     void Awake()
     {
@@ -28,6 +31,14 @@ public class ScoreManager : MonoBehaviour
         if (GameControl.instance != null);
         {
             GameControl.instance.AddPoints (amount);
+            pointsTowardsExtraLife += amount;
+
+            if (pointsTowardsExtraLife >= extraLifePoints)
+            {
+                GameControl.instance.AddLife();
+                pointsTowardsExtraLife -= extraLifePoints;
+            }
+
             UpdateScoreUI();
         }
     }

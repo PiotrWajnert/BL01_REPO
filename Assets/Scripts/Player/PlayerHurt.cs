@@ -134,9 +134,6 @@ public class PlayerHurt : MonoBehaviour
         if (playerAnimations != null) playerAnimations.PlayFreezeAnimation();
 
         // 2. CZEKAMY CHWILÊ (¿eby gracz zobaczy³, ¿e zgin¹³)
-        yield return new WaitForSeconds(1.0f);
-
-
         yield return new WaitForSecondsRealtime(1f);
 
         HandleDeathUIAndRestart();
@@ -163,7 +160,7 @@ public class PlayerHurt : MonoBehaviour
     {
         Time.timeScale = 0f; // zatrzymanie gry
 
-        yield return new WaitForSecondsRealtime(2.5f);
+        yield return new WaitForSecondsRealtime(1.5f); // czas wyswietlania planszy z iloscia zyciu
 
         Time.timeScale = 1f;
 

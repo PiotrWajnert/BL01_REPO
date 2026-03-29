@@ -14,6 +14,9 @@ public class GameControl : MonoBehaviour
     [Header("Player Stats")]
     public int totalLives = 5;
 
+    [Header("Audio")]
+    public AudioClip lifeAddSound;
+
     void Awake()
     {
         if(instance == null)
@@ -32,7 +35,18 @@ public class GameControl : MonoBehaviour
         totalScore += amount;
     }
 
-    //sprawdzenie, czy przedmior zostal zebrany
+    public void AddLife()
+    {
+        totalLives++;
+        Debug.Log("Zyskano zycie. Aktualnie: " +  totalLives);
+
+        if(lifeAddSound != null)
+        {
+            AudioSource.PlayClipAtPoint(lifeAddSound, Camera.main.transform.position);
+        }
+    }
+
+    //sprawdzenie, czy przedmiot zostal zebrany
     public bool IsItemCollected(string id)
     {
         return collectedItems.Contains(id);
