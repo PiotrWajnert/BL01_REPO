@@ -27,7 +27,7 @@ public class Lantern : MonoBehaviour
             //rejestrujemy zebranie
             if(GameControl.instance != null)
             {
-                GameControl.instance.RegisterCollection(itemID);
+                GameControl.instance.RegisterCollection(itemID, true);
             }
 
             // Tutaj w przysz³oœci dodamy dŸwiêk lub cz¹steczki

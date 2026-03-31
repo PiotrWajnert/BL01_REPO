@@ -14,6 +14,9 @@ public class GameControl : MonoBehaviour
     [Header("Player Stats")]
     public int totalLives = 5;
 
+    [Header("Collectibles")]
+    public int lanternsCollected = 0;
+
     [Header("Audio")]
     public AudioClip lifeAddSound;
 
@@ -33,6 +36,13 @@ public class GameControl : MonoBehaviour
     public void AddPoints(int amount)
     {
         totalScore += amount;
+
+        // ZnajdŸ ScoreManager i wymuœ odœwie¿enie napisu na ekranie
+        ScoreManager scoreUI = Object.FindFirstObjectByType<ScoreManager>();
+        if (scoreUI != null)
+        {
+            scoreUI.UpdateScoreUI();
+        }
     }
 
     public void AddLife()
@@ -53,11 +63,31 @@ public class GameControl : MonoBehaviour
     }
 
     //zapisanie zebranego ID
-    public void RegisterCollection(string id)
+    public void RegisterCollection(string id, bool isLantern = false)
     {
         if(!collectedItems.Contains(id))
         {
             collectedItems.Add(id);
+
+            if(isLantern)
+            {
+                lanternsCollected++;
+                Debug.Log("Lampiony: " + lanternsCollected);
+            }
+        }
+    }
+
+    public void RewardLevelEntry(string sceneName)
+    {
+        // Tworzymy unikalny klucz dla sceny, np. "LevelReward_Level1"
+        string rewardID = "LevelReward_" + sceneName;
+
+        // Sprawdzamy, czy ten klucz jest ju¿ na liœcie zebranych rzeczy
+        if (!IsItemCollected(rewardID))
+        {
+            AddPoints(2000);
+            RegisterCollection(rewardID); // To doda do HashSet i zachowa spójnoœæ
+            Debug.Log("Przyznano 2000 pkt za: " + sceneName);
         }
     }
 

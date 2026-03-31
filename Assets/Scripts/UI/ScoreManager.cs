@@ -43,7 +43,7 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    void UpdateScoreUI()
+    public void UpdateScoreUI()
     {
         if (GameControl.instance != null)
         {
@@ -55,7 +55,7 @@ public class ScoreManager : MonoBehaviour
 
             if (HUDLivesText != null)
             {
-                HUDLivesText.text = "LIVES: " + GameControl.instance.totalLives.ToString();
+                HUDLivesText.text = "FALLS " + GameControl.instance.totalLives.ToString();
             }
         }
     }

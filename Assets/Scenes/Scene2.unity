@@ -358,6 +358,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScoreManager
   scoreText: {fileID: 480927540}
+  livesText: {fileID: 0}
+  deathPanel: {fileID: 0}
+  deathLivesText: {fileID: 0}
+  HUDLivesText: {fileID: 0}
+  extraLifePoints: 500
 --- !u!4 &93372968
 Transform:
   m_ObjectHideFlags: 0
@@ -1734,6 +1739,7 @@ GameObject:
   m_Component:
   - component: {fileID: 788372182}
   - component: {fileID: 788372181}
+  - component: {fileID: 788372183}
   m_Layer: 0
   m_Name: GameControl
   m_TagString: Untagged
@@ -1754,6 +1760,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameControl
   targetSpawnPointID: 
+  totalScore: 0
+  totalLives: 5
+  lanternsCollected: 0
+  lifeAddSound: {fileID: 0}
 --- !u!4 &788372182
 Transform:
   m_ObjectHideFlags: 0
@@ -1769,6 +1779,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &788372183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 788372180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0868c4f2582f9784a8d02208133b67a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelRewardTrigger
 --- !u!1 &792254671
 GameObject:
   m_ObjectHideFlags: 0
