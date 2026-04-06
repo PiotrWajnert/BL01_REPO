@@ -3,12 +3,15 @@ using UnityEngine.SceneManagement;
 
 public class LevelRewardTrigger : MonoBehaviour
 {
+    [SerializeField]
+    public string sceneName;
+
     void Awake()
     {
         string currentScene = SceneManager.GetActiveScene().name;
 
         // WPISZ TUTAJ NAZWÊ SWOJEJ PIERWSZEJ SCENY
-        if (currentScene == "SampleScene")
+        if (currentScene == sceneName)
         {
             return; // Przerywa dzia³anie, nie daje punktów
         }

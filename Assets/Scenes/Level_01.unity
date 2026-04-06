@@ -130,9 +130,9 @@ GameObject:
   - component: {fileID: 1733779}
   - component: {fileID: 1733780}
   m_Layer: 0
-  m_Name: PlayerSpawnPoint_A
+  m_Name: PlayerSpawnPoint_01RM
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -145,7 +145,7 @@ Transform:
   m_GameObject: {fileID: 1733778}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.329, y: 1.515, z: 0}
+  m_LocalPosition: {x: 4.583, y: -1.064, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0b0d512f1856b94e8e7c397c7d31ce1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSpawnPoint
-  spawnPointID: L1_Right
+  spawnPointID: L01_RightMiddle
 --- !u!1 &93145789
 GameObject:
   m_ObjectHideFlags: 0
@@ -1496,7 +1496,7 @@ GameObject:
   - component: {fileID: 713641003}
   - component: {fileID: 713641004}
   m_Layer: 0
-  m_Name: SceneTransition
+  m_Name: Transition_01RM
   m_TagString: Untagged
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1510,12 +1510,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 713641001}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.998, y: -1.027, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.8035898, y: -0.29403996, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1986529298}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &713641003
 MonoBehaviour:
@@ -1529,8 +1529,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66e4eeaf991ac9d45b81976cae69b9b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneTransition
-  sceneToLoad: Scene2
-  spawnPointToSet: L2_Left
+  sceneToLoad: Level_02
+  spawnPointToSet: L02_LeftMiddle
 --- !u!58 &713641004
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1989,7 +1989,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 275c647f941200248b377aec59d971e1, type: 3}
   m_Color: {r: 0, g: 0, b: 1, a: 0.47058824}
@@ -2063,6 +2063,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0868c4f2582f9784a8d02208133b67a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelRewardTrigger
+  sceneName: Level_01
 --- !u!1 &792254671
 GameObject:
   m_ObjectHideFlags: 0
@@ -2515,7 +2516,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 275c647f941200248b377aec59d971e1, type: 3}
   m_Color: {r: 0, g: 0, b: 1, a: 0.47058824}
@@ -2664,6 +2665,89 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 924908244}
   m_CullTransparentMesh: 1
+--- !u!1 &971120911
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 971120912}
+  - component: {fileID: 971120914}
+  - component: {fileID: 971120913}
+  m_Layer: 0
+  m_Name: Transition_01RT
+  m_TagString: Untagged
+  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &971120912
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 971120911}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.8035898, y: 1.184, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1986529298}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &971120913
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 971120911}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.15
+--- !u!114 &971120914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 971120911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66e4eeaf991ac9d45b81976cae69b9b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneTransition
+  sceneToLoad: Level_02
+  spawnPointToSet: L02_LeftTop
 --- !u!1001 &1022421243
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3290,7 +3374,7 @@ GameObject:
   - component: {fileID: 1333105995}
   - component: {fileID: 1333105994}
   m_Layer: 0
-  m_Name: SpawnManager
+  m_Name: EnemySpawnManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3678,9 +3762,9 @@ GameObject:
   - component: {fileID: 1832523695}
   - component: {fileID: 1832523696}
   m_Layer: 0
-  m_Name: PlayerSpawnPoint_B
+  m_Name: PlayerSpawnPoint_01RT
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -3693,7 +3777,7 @@ Transform:
   m_GameObject: {fileID: 1832523694}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.48, y: 1.546, z: 0}
+  m_LocalPosition: {x: 4.583, y: 0.438, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3711,7 +3795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0b0d512f1856b94e8e7c397c7d31ce1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSpawnPoint
-  spawnPointID: L1_Left
+  spawnPointID: L01_RightTop
 --- !u!1 &1854569889
 GameObject:
   m_ObjectHideFlags: 0
@@ -4070,6 +4154,39 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &1986529297
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1986529298}
+  m_Layer: 0
+  m_Name: SceneTransitions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1986529298
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1986529297}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.36241, y: -0.73296, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 713641002}
+  - {fileID: 971120912}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2136189952
 GameObject:
   m_ObjectHideFlags: 0
@@ -4080,7 +4197,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2136189953}
   m_Layer: 0
-  m_Name: SpawnPoints
+  m_Name: PlayerSpawnPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4249,7 +4366,7 @@ SceneRoots:
   - {fileID: 1262670320}
   - {fileID: 635184913}
   - {fileID: 2136189953}
-  - {fileID: 713641002}
+  - {fileID: 1986529298}
   - {fileID: 1275320058}
   - {fileID: 1222671039}
   - {fileID: 639185250}
