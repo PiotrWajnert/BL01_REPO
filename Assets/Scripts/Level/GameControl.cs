@@ -33,6 +33,11 @@ public class GameControl : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        Screen.SetResolution(800, 500, false);
+    }
+
     public void AddPoints(int amount)
     {
         totalScore += amount;
